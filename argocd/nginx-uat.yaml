@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: nginx-uat
+  namespace: argocd
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/PrinceSah09/argocd-helm-lab.git
+    targetRevision: main
+    path: helm/nginx
+
+    helm:
+      valueFiles:
+        - values-uat.yml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: uat
